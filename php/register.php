@@ -15,9 +15,10 @@ function registerUser($username, $email, $password){
         'password' => $password,       
     );
     //save data into the file
-    if (checkUserExist(email)){
+    if (checkUserExist($email)){
         echo "User Already Exists";
     }else{
+        $folder= "../storage/users.csv";
         $detail = fopen($folder, "ra+"); 
         fputincsv($detail, $user);
          fclose($detail);
