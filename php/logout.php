@@ -1,24 +1,18 @@
 <?php
-session_start();
 
-$_SESSION = array();
-function logout()
-{
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(
-            session_name(),
-            '',
-            time() - 42000,
-            $params["path"],
-            $params["domain"],
-            $params["secure"],
-            $params["httponly"]
-        );
+
+function logout(){
+   session_start(); 
+
+    if ($_SESSION){
+        session_destroy();
+        header("location:../forms/index.php");
+        exit();
+    }else{
+        header("location:../forms/login.php?error=User not logged in");
+        exit();       
     }
-    session_destroy();
-    header("location:../forms/login.html");
 }
+logout()
 
-echo "HANDLE THIS PAGE";
 ?>
