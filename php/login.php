@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -13,14 +14,15 @@ if (isset($_POST['submit'])) {
 
 function loginUser($email, $password)
 {
-    $data = "../storage/users.csv";
-    $database=  fopen($data, 'r');
+    $folder= "../storage/users.csv";
+    $detail = fopen($folder, "r"); 
 
-    while (!feof($database)){
-        $line= fgetcsv($database);
+    while (!feof($detail)){
+        $line= fgetcsv($detail);
         if ($line[1] == $email && $line[2] == $password) {
             $_SESSION['username'] = $line[0];
-            header("locatiom:../dashboard.php");
+            header("location:../dashboard.php");
+            exit()
         }else{
             echo '<script>
             alert(" Sorry... Email or Password is incorrect");
